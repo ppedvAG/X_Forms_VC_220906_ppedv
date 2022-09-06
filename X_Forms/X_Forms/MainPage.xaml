@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:X_Forms"
+             x:Class="X_Forms.MainPage">
+             <!--Kommentar-->
+
+    <StackLayout x:Name="Stl_Main"
+                 BackgroundColor="LightBlue"
+                 Orientation="Vertical"
+                 HorizontalOptions="FillAndExpand"
+                 VerticalOptions="FillAndExpand"
+                 Padding="10">
+
+        <Label x:Name="Lbl_Output"
+	           HorizontalOptions="Center"
+               FontSize="Title"
+               FontAttributes="Bold">
+            
+            <Label.Text>
+                Hallo, ich bin ein String
+            </Label.Text>
+            
+        </Label>
+
+        <Button x:Name="Btn_KlickMich"
+                Text="Klick Mich"
+                Clicked="Btn_KlickMich_Clicked"/>
+
+
+        <Entry Placeholder="z.B. Max Mustermann"/>
+        
+    </StackLayout>
+
+</ContentPage>
