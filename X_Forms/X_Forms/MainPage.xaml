@@ -1,35 +1,232 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--vgl. CodeBehind-->
+
+<!--Jede XAML-Datei hat eine Root-Element, welcher die Art der UI bestimmt. Dieses muss mit der Mutterklasse im CodeBehind übereinstimmen-->
+<!--Im Root-Element werden die in diesem Dokument benutzten Namespaces definiert, sowie der Verweis auf die anhängige Klasse (CodeBehind)-->
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:X_Forms"
              x:Class="X_Forms.MainPage">
-             <!--Kommentar-->
+    
+    <!--Jeder Container / jede Page hat eine Resource-Property, in welcher Ressourcen (Objekte, Styles, Converter, ...) für diesen 
+    Container bereit gestellt werden können.-->
+    <ContentPage.Resources>
+        <!--Über das Präfix (Zeichen vor dem Doppelpunkt) wird der entsprechende Namespace angesteuert-->
+        <!--Jede Ressource (außer globalen Styles) benötigen einen Key, über welche diese angersteuert werden können.-->
+        <x:String x:Key="BtnString">Moin, ich bin eine Ressource</x:String>
+    </ContentPage.Resources>
 
-    <StackLayout x:Name="Stl_Main"
+    <!--Ein ScrollView ermöglicht dem User das Scrollen-->
+    <ScrollView>
+
+        <!--Properties können direkt im einleitenden Tag mittels der Attribute gesetzt werden.-->
+        <!--Vertical und HorizontalOptions definieren das Anzeige-Verhalten des UI-Elements in Bezug auf umgebende Objekte.-->
+        <!--Padding definiert einen Abstand des UI-Elements zu inneren Elementen.-->
+        <!--Container, welche die Children-Property besitzen können mehrere Elemente beinhalten-->
+        <StackLayout x:Name="Stl_Main"
                  BackgroundColor="LightBlue"
                  Orientation="Vertical"
                  HorizontalOptions="FillAndExpand"
                  VerticalOptions="FillAndExpand"
-                 Padding="10">
+                 Padding="10, 20, 30, 40">
 
-        <Label x:Name="Lbl_Output"
-	           HorizontalOptions="Center"
-               FontSize="Title"
-               FontAttributes="Bold">
+            <StackLayout.Resources>
+                <!--Existiert derselbe Ressourcen-Key in verschiedenen Resource-Properties, gilt jener, welcher 'näher drann' liegt-->
+                <x:String x:Key="BtnString">Ciao, ich bin eine Ressource</x:String>
+            </StackLayout.Resources>
+
+            <!--Frame ist eine grafische Umrandung-->
+            <Frame BorderColor="Red"
+                   HorizontalOptions="FillAndExpand">
+
+                <!--Label sind Controls zur Ausgabe von Strings-->
+                <!--Einfache Property-Belegungen werden in Attribut-Form direkt in den Start-Tag geschrieben-->
+                <Label x:Name="Lbl_Output"
+                       FontSize="{StaticResource GlobalFontSize}"
+                       FontAttributes="Bold"
+                       HorizontalTextAlignment="Center"
+                       HorizontalOptions="FillAndExpand"
+                       Margin="20">
+
+                    <!--Alternativ können Eigenschaften 'ausgelagert' werden, z.B. um sie mit komplexen Objekten zu befüllen-->
+                    <Label.Text>
+                        Hallo, ich bin ein String
+                    </Label.Text>
+
+                </Label>
+            </Frame>
+
+            <!--BoxView als Spereator-Line-->
+            <BoxView BackgroundColor="Black" HeightRequest="2"/>
+
+            <!--Buttons sind Controls, welche der User zum Auslösen von bestimmten Logiken benutzen kann-->
+            <!--In XAML definierte Events benötigen einen EventHandler im CodeBehind (vgl. CodeBehind)-->
+            <!--Mittels einer StaticResource-Bindung kann auf in übergeordneten Container definierte Ressourcen zugegriffen werden-->
+            <Button x:Name="Btn_KlickMich"
+                    Text="{StaticResource BtnString}"
+                    Clicked="Btn_KlickMich_Clicked"/>
+
+            <!--ImageButtons sind Buttons mit grafischem Inhalt-->
+            <!--Grafische Ressourcen müssen in den einzelnen OS-Projekten abgelegt sein (z.B. Android/Resources/drawable)-->
+            <ImageButton x:Name="IBtn_Beispiel"
+                     Source="test.png"
+                     HeightRequest="50"
+                     HorizontalOptions="Center"
+                     BackgroundColor="Transparent"
+                     Clicked="Btn_KlickMich_Clicked"/>
+
+            <!--Entries sind Controls zur User-Eingabe von Strings-->
+            <!--Die Placeholder-Property des Entries wird im Textfeld angezeigt, solange der Benutzer noch keinen Eintrag getätigt hat-->
+            <!--Die Keyboard-Property definiert das angezeigte Eingabefeld-->
+            <Entry x:Name="Ent_Input"
+                   Placeholder="z.B. Max Mustermann"
+                   Keyboard="Text"
+                   TextChanged="Entry_TextChanged"
+                   Completed="Btn_KlickMich_Clicked"/>
             
-            <Label.Text>
-                Hallo, ich bin ein String
-            </Label.Text>
-            
-        </Label>
+            <!--Der ActivityIndicator und die ProgressBar sind Visualisierungen, um dem User laufende Prozesse zu symbolisieren-->
+            <!--Mittels der IsVisible-Eigenschaft können einzelne Controls aus- und eingeblendet werden-->
+            <ActivityIndicator IsRunning="True"
+                           IsVisible="false"/>
 
-        <Button x:Name="Btn_KlickMich"
-                Text="Klick Mich"
-                Clicked="Btn_KlickMich_Clicked"/>
+            <!--Slider und Stepper sind Controls zur User-Maipulation von numerischen Werten-->
+            <Slider x:Name="Sdr_Wert"
+                    Minimum="0"
+                    Maximum="100"
+                    ValueChanged="Sdr_Wert_ValueChanged"/>
 
+            <Stepper x:Name="Spr_Wert"
+                     Minimum="0"
+                     Maximum="100"
+                     Increment="1"
+                     ValueChanged="Sdr_Wert_ValueChanged"/>
 
-        <Entry Placeholder="z.B. Max Mustermann"/>
-        
-    </StackLayout>
+            <!--Controls zur Datums oder Zeitauswahl-->
+            <DatePicker x:Name="Dpr_Datum" Date="09.02.2002" Format="dd.MM.yyyy"/>
+            <TimePicker Time="23:01:12" Format="hh:mm:ss"/>
+
+            <!--Picker dienen als ItemCollections, aus denen der User einen Eintrag auswählen kann (ähnlich ComboBoxen auf Desktops)-->
+            <Picker x:Name="Pkr_Monkeys"
+                    Title="Monkeys">
+                <Picker.Items>
+                    <x:String>Baboon</x:String>
+                    <x:String>Capuchin Monkey</x:String>
+                    <x:String>Blue Monkey</x:String>
+                    <x:String>Squirrel Monkey</x:String>
+                </Picker.Items>
+            </Picker>
+
+            <!--Mittels des Image-Controls können (lokale und externe) grafische Ressourcen angezeigt werden-->
+            <Image Source="https://aka.ms/campus.jpg"
+                   Aspect="Fill"
+                   HeightRequest="60"/>
+
+            <!--Styles geben Property-Belegungen für bestimmte COntrol-Typen vor (vgl. ResDict.xaml)-->
+            <StackLayout x:Name="Stl_Styles"
+                         Orientation="Horizontal">
+                <!--Dieser Button nimmt den globalen Button-Style an-->
+                <Button Text="Globaler Style"
+                        HorizontalOptions="FillAndExpand"
+                        BackgroundColor="HotPink"/>
+                <!--Dieser Button nimmt einen expliziten Button-Style an-->
+                <Button Text="Expliziter Style"
+                        HorizontalOptions="FillAndExpand"
+                        Style="{StaticResource Btn_Style}"/>
+            </StackLayout>
+
+            <!--Bindungen-->
+            <StackLayout x:Name="Sly_Bindings"
+                         Orientation="Horizontal">
+
+                <StackLayout.Resources>
+                    <!--Converter sind Klassen, welche innerhalb von Bindungen für Werte-Manipulationen sorgen-->
+                    <local:DoubleToColorConverter x:Key="double2color"/>
+                </StackLayout.Resources>
+
+                <!--Mittels Bindungen können Properties von UI-Elementen miteinander verknüpft werden.-->
+                <Slider x:Name="Sdr_Binding"
+                        Minimum="0"
+                        Maximum="255"
+                        WidthRequest="250"/>
+                <!--Mittels einer Markup-Extension ({}-Klammern) kann eine Property an eine andere Property gebunden werden. Die Property,
+                welche die Markup-Extension beinhaltet, gilt als Target-Property-->
+                <Entry x:Name="Lbl_Binding"
+                       Text="{Binding Source={x:Reference Sdr_Binding}, Path=Value, Mode=TwoWay}"
+                       WidthRequest="40"/>
+                <!--Soll der Wert nicht unverandert übertragen werden oder sind die Property-Typen unterschiedlich muss ein Converter
+                zwischengeschaltet werden (vgl. DoubleToColorConverter.cs)-->
+                <BoxView WidthRequest="50"
+                         HeightRequest="50"
+                         BackgroundColor="{Binding Source={x:Reference Sdr_Binding}, Path=Value, Mode=OneWay, Converter={StaticResource double2color}, ConverterParameter=150}"/>
+
+            </StackLayout>
+
+            <!--DataBinding-->
+            <StackLayout x:Name="Sly_DataBinding">
+                
+                <!--Der BindingContext definiert den DatenHintergrund eines Controls/Containers/Page. Kurzbindungen innerhalb dieses
+                Bereichs zielen immer auf dieses Objekt. Hier wurde XAML-seitig ein Person-Objekt definiert (vgl. Person.cs)-->
+                <StackLayout.BindingContext>
+                    <local:Person Name="Rainer Zufall" Alter="35"/>
+                </StackLayout.BindingContext>
+
+                <StackLayout Orientation="Horizontal">
+                    <!--Bsp für Kurzbindungen an den BindingContext. Codeseitige Veränderungen müssen durch das Interface 
+                            INotifyPropertyChanged kommuniziert werden (vgl. Person.cs)-->
+                    <Entry HorizontalOptions="FillAndExpand"
+                           Text="{Binding Path=Name}"/>
+                    <Label HorizontalOptions="FillAndExpand"
+                           VerticalOptions="Center"
+                           Text="{Binding Alter}"/>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal">
+                    <!--Button zum Anzeigen des Personenobjekts-->
+                    <Button x:Name="Btn_Show"
+                            Text="Show"
+                            Clicked="Btn_Show_Clicked"/>
+                    <!--Button zur Codeseitigen Veränderung der Person-Properties-->
+                    <Button x:Name="Btn_Altern"
+                            Text="Altern"
+                            Clicked="Btn_Altern_Clicked"/>
+                </StackLayout>
+
+                <!--Bindungen können auch tiefer in die Objektstruktur reichen-->
+                <Label Text="{Binding WichtigeTage[2].Year, StringFormat='Jahr: {0:0.00}'}"/>
+
+                <!--Die Property 'ItemSource' verweist auf die Quelle der Items für die Liste.
+                        Hier wurde sie per Kurzbindung an die Property 'WichtigeTage' des BindingContextes 
+                        des StackLayouts angebunden (vgl. Person.cs)-->
+                <ListView HeightRequest="150"
+                          x:Name="LstV_Tage"
+                          ItemsSource="{Binding WichtigeTage}">
+                    <!--Mittels DataTemplates kann das Erscheinen von einzelnen Elementen von ItemControls (hier ListView) defniert werden.
+                                DataTemplates müssen immer ein UI-Element vom Typ Cell beinhalten.-->
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <!--Innerhalb von DataTemplates findet immer ein DataBinding an die Elemente der ItemSource statt (vgl. CodeBehind).
+                                        Dadurch finden Kurzbindungen an die Properties der Listenelemente statt.-->
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding Day}" VerticalOptions="Center"/>
+                                    <Label Text="." VerticalOptions="Center"/>
+                                    <Label Text="{Binding Month}" VerticalOptions="Center"/>
+                                    <Label Text="." VerticalOptions="Center"/>
+                                    <Label Text="{Binding Year}" VerticalOptions="Center"/>
+                                    <Button Text="Löschen" x:Name="Btn_Delete_02" Clicked="Btn_Delete_02_Clicked" CommandParameter="{Binding}"/>
+                                </StackLayout>
+                                <!--ContextActions werden angezeigt, wenn der Benutzer (unter Android) länger auf eine Objekt 'touched'-->
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Löschen" Clicked="Btn_Delete_02_Clicked" CommandParameter="{Binding}"/>
+                                </ViewCell.ContextActions>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <Button x:Name="Btn_Add" Text="Neuer wichtiger Tag" Clicked="Btn_Add_Clicked"/>
+                <Button x:Name="Btn_Delete" Text="Lösche markierten Tag" Clicked="Btn_Delete_Clicked"/>
+            </StackLayout>
+
+        </StackLayout>
+    </ScrollView>
 
 </ContentPage>
