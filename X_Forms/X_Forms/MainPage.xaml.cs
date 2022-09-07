@@ -120,11 +120,5 @@ namespace X_Forms
         {
             Navigation.PushAsync(new NavigationBsp.CarouselPageBsp());
         }
-
-        private void ToolbarItem_Clicked(object sender, EventArgs e)
-        {
-            //Löschen der kompletten Liste
-            (Sly_DataBinding.BindingContext as Person).WichtigeTage.Clear();
-        }
     }
 }
