@@ -15,7 +15,10 @@ namespace X_Forms
             //Zuweisung einer Page zu der MainPage-Property (Startseite)
             //MainPage = new MainPage();
 
-            MainPage = new Layouts.RelativeLayoutBsp();
+            //NavigationPages ermöglichen den Aufruf der Navigation.PusAsync-Methode aus beinhalteten ContentPages
+            //MainPage = new NavigationPage(new MainPage());
+
+            MainPage = new NavigationBsp.FlyoutBsp.FlyoutNavigationBsp();
         }
 
         protected override void OnStart()

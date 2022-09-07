@@ -92,5 +92,39 @@ namespace X_Forms
             //Löschen des Items
             (Sly_DataBinding.BindingContext as Person).WichtigeTage.Remove(wichtigerTag);
         }
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            //Löschen der kompletten Liste
+            (Sly_DataBinding.BindingContext as Person).WichtigeTage.Clear();
+        }
+
+        //Navigationsbeispiele
+        private void Btn_NavigateToGridU_Clicked(object sender, EventArgs e)
+        {
+            //Aufruf einer neuen Seite innerhalb der aktuellen NavigationPage 
+            Navigation.PushAsync(new Übungen.U_GridLayout());
+        }
+
+        private void Btn_NavigateToRelativeLU_Clicked(object sender, EventArgs e)
+        {
+            //Aufruf einer neuen Seite innerhalb der aktuellen NavigationPage, welche aber keine Navigationsleiste anzeigt
+            Navigation.PushModalAsync(new Übungen.U_RelativeLayout());
+        }
+
+        private void Btn_NavigateToTabbedP_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new NavigationBsp.TabbedPageBsp());
+        }
+
+        private void Btn_NavigateToCarouselP_Clicked(object sender, EventArgs e)
+        {
+            Navigation.PushAsync(new NavigationBsp.CarouselPageBsp());
+        }
+
+        private void ToolbarItem_Clicked(object sender, EventArgs e)
+        {
+            //Löschen der kompletten Liste
+            (Sly_DataBinding.BindingContext as Person).WichtigeTage.Clear();
+        }
     }
 }

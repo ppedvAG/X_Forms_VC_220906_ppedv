@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<!--Die TabbedPage-Navigation ist eine Navigation mittels Registerkarten. Diese werden je nach OS oben oder unten auf
+    der Page angezeigt. Mittels wischen nach links/rechts kann ebenfalls zwischen den hier definierten ContentPages gewechselt werden-->
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="X_Forms.NavigationBsp.TabbedPageBsp"
+            xmlns:layouts="clr-namespace:X_Forms.Layouts"
+            Title="TabbedPage">
+    <ContentPage Title="Tab 1">
+        <Label Text="Erste Seite" FontSize="50" HorizontalOptions="Center" VerticalOptions="Center"/>
+    </ContentPage>
+    <layouts:AbsoluteLayoutBsp Title="ABSOLUTE"/>
+    <layouts:GridLayoutBsp/>
+    <layouts:RelativeLayoutBsp Title="RELATIVE"/>
+    <layouts:StackLayoutBsp/>
+</TabbedPage>
