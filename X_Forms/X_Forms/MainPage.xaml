@@ -6,6 +6,7 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:X_Forms"
+             xmlns:loc="clr-namespace:X_Forms.Properties"
              x:Class="X_Forms.MainPage"
              Title="MainPage">
     
@@ -255,6 +256,19 @@
                         x:Name="Btn_NavigateToCarouselP"
                         Clicked="Btn_NavigateToCarouselP_Clicked"/>
             </StackLayout>
+
+            <!--Label zum Anzeigen des Batterie-Status mittels Xamarin.Essentials (vgl. CodeBehind)-->
+            <Label x:Name="Lbl_Battery"/>
+            <!--Beispiele für lokalisierte Beschriftungen (vgl. CodeBehind sowie Resource.resx und Resource.de.resx)-->
+            <!--Mittels der x:Static-Bindung können Properties an resx-Files gebunden werden-->
+            <!--Button zum Öffnen der Youtube-App (vgl. CodeBehind)-->
+            <Button x:Name="Btn_Youtube"
+                    Text="{x:Static loc:Resources.Btn_Youtube_Text}"
+                    Clicked="Btn_Youtube_Clicked"/>
+            <!--Button zum Senden einer MC-Nachricht (vgl. CodeBehind und MCSubscriberPage.cs)-->
+            <Button x:Name="Btn_MCSender"
+                    Text="{x:Static loc:Resources.Btn_MCSender_Text}"
+                    Clicked="Btn_MCSender_Clicked"/>
 
         </StackLayout>
     </ScrollView>

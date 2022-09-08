@@ -1,4 +1,5 @@
 ﻿using System;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -27,10 +28,12 @@ namespace X_Forms
 
         protected override void OnSleep()
         {
+            Preferences.Set("timestamp", DateTime.Now);
         }
 
         protected override void OnResume()
         {
+            MainPage.DisplayAlert("Geschlafene Zeit", DateTime.Now.Subtract(Preferences.Get("timestamp", DateTime.Now)).ToString(), "ok");
         }
     }
 }

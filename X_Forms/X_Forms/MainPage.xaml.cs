@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace X_Forms
@@ -13,6 +14,9 @@ namespace X_Forms
         //Konstruktor
         public MainPage()
         {
+            //Setzten der Ressourcensprache -> Bestimmt, welche resx-Bibliothek für die Lokalisierung verwendet wird
+            Properties.Resources.Culture = new System.Globalization.CultureInfo("de");
+
             //Initialisierung der UI (Xaml-Datei). Sollte immer erste Aktion des Konstruktors sein
             InitializeComponent();
 
@@ -21,6 +25,8 @@ namespace X_Forms
 
             //Neuzuweisung einer Eigenschaft eines Controls
             Stl_Main.BackgroundColor = Color.LightGreen;
+
+            Lbl_Battery.Text = $"{Battery.ChargeLevel * 100} % Prozent geladen | {Battery.State}";
         }
 
         //EventHandler eines Button-Click-Events (reagiert auf Button-Klick oder -Tab)
@@ -119,6 +125,24 @@ namespace X_Forms
         private void Btn_NavigateToCarouselP_Clicked(object sender, EventArgs e)
         {
             Navigation.PushAsync(new NavigationBsp.CarouselPageBsp());
+        }
+
+        private async void Btn_Youtube_Clicked(object sender, EventArgs e)
+        {
+            //Öffnen der Youtube-App über die Xamarin-Essentials mit Übergabe des Package-Namens
+            if (await Launcher.CanOpenAsync("vnd.youtube://"))
+                await Launcher.OpenAsync("vnd.youtube://rLKnqR9Oqh8");
+        }
+
+        //Bsp für Verwendung des MessagingCenters
+        private void Btn_MCSender_Clicked(object sender, EventArgs e)
+        {
+            //Instanzieren des Empängerobjekts
+            Page page = new MCSubscriberPage();
+            //Senden der Nachricht mit Angabe des Senders, des Titels und des Inhalts
+            MessagingCenter.Send(this, "Nachricht", Pkr_Monkeys.SelectedItem.ToString());
+            //Öffnen der Bsp-Seite
+            Navigation.PushAsync(page);
         }
     }
 }
