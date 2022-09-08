@@ -36,9 +36,9 @@
                     Text="Hinzufügen"
                     Command="{Binding HinzufügenCmd}"/>
 
+            <!--Für ListView und DataTemplate vgl. MainPage.xaml und PersonenDb/Pages/Pg_List.xaml-->
             <ListView x:Name="LstV_Fahrzeuge"
-                      ItemsSource="{Binding Fahrzeugliste}"
-                      SelectedItem="{Binding SelectedFahrzeug}">
+                      ItemsSource="{Binding Fahrzeugliste}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>

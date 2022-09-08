@@ -41,6 +41,7 @@ namespace X_Forms.NavigationBsp.FlyoutBsp
                     new FlyoutNavigationBspFlyoutMenuItem { Id = 2, Title = "Grid-Übung", TargetType=typeof(Übungen.U_GridLayout) },
                     new FlyoutNavigationBspFlyoutMenuItem { Id = 3, Title = "PersonenDB", TargetType=typeof(PersonenDb.Nav.FlyoutMenue) },
                     new FlyoutNavigationBspFlyoutMenuItem { Id = 4, Title = "MVVM", TargetType=typeof(MVVM.View.FahrzeugView) },
+                    new FlyoutNavigationBspFlyoutMenuItem { Id = 5, Title = "GoogleBooks", TargetType=typeof(Übungen.GoogleBooks.View.MainView) },
                 });
             }
 
